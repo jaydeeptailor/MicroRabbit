@@ -1,4 +1,5 @@
-﻿using MicroRabbit.Banking.Application.Interfaces;
+﻿using MediatR;
+using MicroRabbit.Banking.Application.Interfaces;
 using MicroRabbit.Banking.Application.Services;
 using MicroRabbit.Banking.Data.Context;
 using MicroRabbit.Banking.Data.Repository;
@@ -14,7 +15,11 @@ namespace MicroRabbit.Infra.IoC
         public static void RegisterServices(IServiceCollection services)
         {
             //domain bus
-            services.AddTransient<IEventBus, RabbitMQBus>();
+            //Domain Bus
+            services.AddSingleton<IEventBus, RabbitMQBus>(sp =>
+            {
+                return new RabbitMQBus(sp.GetService<IMediator>());
+            });
 
             //Application layer
             services.AddTransient<IAccountService, AccountService>();
