@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿
+using MediatR;
 using MicroRabbit.Domain.Core.Bus;
 using MicroRabbit.Domain.Core.Commands;
 using MicroRabbit.Domain.Core.Events;
